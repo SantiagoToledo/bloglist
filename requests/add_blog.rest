@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "Blog with config and logger",
-  "author": "Santiago 2",
-  "url": "testurl.com",
-  "likes": 5
+  "title": "Blog with modules separated",
+  "author": "Santiago 3",
+  "url": "modules.net",
+  "likes": 2
 }
