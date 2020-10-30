@@ -5,7 +5,7 @@ const unknownEndpoint = (request, response) => {
 
 // ERROR HANDLER
 const errorHandler = (error, request, response, next) => {
-	console.error(error.message)
+	//	console.error(error.message)
 
 	if (error.name === 'CastError') {
 		return response.status(400).json({ error: 'malformated request' })

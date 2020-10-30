@@ -2,19 +2,31 @@ const userRouter = require('express').Router()
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
 
-userRouter.post('/', async (request, response) => {
-	const body = request.body
+userRouter.post('/', async (request, response, next) => {
+	try {
+		const body = request.body
 
-	const passwordHash = await bcrypt.hash(body.password, 10)
-	const user = new User({
-		username: body.username,
-		name: body.name,
-		passwordHash,
-	})
+		if (!body.password || body.password.length < 3) {
+			throw {
+				name: 'ValidationError',
+				message: 'password is shorter than minimunm allowed: 3',
+			}
+		}
 
-	const savedUser = await user.save()
+		const passwordHash = await bcrypt.hash(body.password, 10)
 
-	response.json(savedUser)
+		const user = new User({
+			username: body.username,
+			name: body.name,
+			passwordHash,
+		})
+
+		const savedUser = await user.save()
+
+		response.json(savedUser)
+	} catch (error) {
+		next(error)
+	}
 })
 
 userRouter.get('/', async (request, response) => {
