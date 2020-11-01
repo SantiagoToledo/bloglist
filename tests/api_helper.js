@@ -1,3 +1,4 @@
+const { JsonWebTokenError } = require('jsonwebtoken')
 const Blog = require('../models/blogModel')
 const User = require('../models/userModel')
 
@@ -51,7 +52,11 @@ const initialUsers = [
 ]
 
 const blogsInDb = async () => {
-	const blogs = await Blog.find({})
+	const blogs = await Blog.find({}).populate('user', {
+		username: 1,
+		name: 1,
+		id: 1,
+	})
 	return blogs.map((b) => b.toJSON())
 }
 
