@@ -12,6 +12,7 @@ const {
 	errorHandler,
 	unknownEndpoint,
 	tokenExtractor,
+	requestLogger,
 } = require('./utils/middleware')
 
 mongoose
@@ -31,6 +32,7 @@ mongoose
 app.use(cors())
 app.use(express.json())
 app.use(tokenExtractor)
+app.use(requestLogger)
 
 app.use('/api/login', loginRouter)
 app.use('/api/blogs', blogRouter)

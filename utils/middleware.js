@@ -3,6 +3,19 @@ const unknownEndpoint = (request, response) => {
 	response.status(404).send({ error: 'unknown emdpoint' })
 }
 
+// REQUEST LOGGER
+const requestLogger = (request, response, next) => {
+	console.log(
+		'Method: ',
+		request.method,
+		' Path: ',
+		request.path,
+		' Body: ',
+		request.body
+	)
+	next()
+}
+
 // ERROR HANDLER
 const errorHandler = (error, request, response, next) => {
 	//	console.error(error.message)
@@ -29,6 +42,7 @@ const tokenExtractor = (request, response, next) => {
 
 module.exports = {
 	unknownEndpoint,
+	requestLogger,
 	errorHandler,
 	tokenExtractor,
 }
